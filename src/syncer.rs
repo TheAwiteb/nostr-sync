@@ -48,9 +48,18 @@ pub async fn run(config: &Config, state: SharedState) -> Result<(), Error> {
         .await?;
     let gossip: NostrGossipSqlite = NostrGossipSqlite::open(&config.nostr.gossip_path).await?;
 
+    let gossip_config = GossipConfig::default().limits(GossipRelayLimits {
+        write_relays_per_user: 10,
+        read_relays_per_user: 10,
+        hint_relays_per_user: 10,
+        most_used_relays_per_user: 10,
+        nip17_relays: 0,
+    });
+
     let client: Client = Client::builder()
         .database(events)
         .gossip(gossip)
+        .gossip_config(gossip_config)
         .sleep_when_idle(SleepWhenIdle::Enabled {
             timeout: Duration::from_secs(300),
         })
