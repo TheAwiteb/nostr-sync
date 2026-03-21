@@ -85,8 +85,7 @@ async fn get_workdir() -> Result<PathBuf, Error> {
             let data_dir: PathBuf = dirs::data_dir().expect("Can't find data directory");
 
             // Construct path
-            // TODO: use rust-nostr/sync path?
-            data_dir.join("nostr/sync")
+            data_dir.join("rust-nostr/sync")
         }
     };
 
