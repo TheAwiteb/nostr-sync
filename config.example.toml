@@ -1,0 +1,6 @@
+# Nostr Sync configuration file example
+
+# Web UI config
+[web]
+# Listen address and port for the Web UI
+listen_addr = "127.0.0.1:44552"

@@ -6,6 +6,18 @@ A tiny service that periodically syncs events between own relays.
 
 TODO
 
+## Configuration
+
+**Configuration file**
+
+TODO
+
+**Environment variables**
+
+The following environment variables are available:
+- `BNKR_SENSOR_WORKDIR` (**optional**): optionally define where the data directory is located
+- `BNKR_SENSOR_WEB_LISTEN_ADDR` (**optional**): the socket address for the web UI server (i.e., `0.0.0.0:44552`)
+
 ## Donations
 
 `rust-nostr` is free and open-source. This means we do not earn any revenue by selling it. Instead, we rely on your financial support. If you actively use any of the `rust-nostr` libs/software/services, then please [donate](https://rust-nostr.org/donate).
