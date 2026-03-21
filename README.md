@@ -15,8 +15,8 @@ TODO
 **Environment variables**
 
 The following environment variables are available:
-- `BNKR_SENSOR_WORKDIR` (**optional**): optionally define where the data directory is located
-- `BNKR_SENSOR_WEB_LISTEN_ADDR` (**optional**): the socket address for the web UI server (i.e., `0.0.0.0:44552`)
+- `NOSTR_SYNC_WORKDIR` (**optional**): optionally define where the data directory is located
+- `NOSTR_SYNC_WEB_LISTEN_ADDR` (**optional**): the socket address for the web UI server (i.e., `0.0.0.0:44552`)
 
 ## Donations
 
