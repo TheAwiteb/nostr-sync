@@ -1,0 +1,31 @@
+.empty {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.big-add {
+    font-size: 1.4rem;
+    padding: 1rem 2rem;
+}
+
+.nav-home {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-home:hover,
+.nav-home:focus {
+    text-decoration: none;
+}
+
+article {
+    cursor: pointer;
+}
+
+button {
+    align-self: start;
+}

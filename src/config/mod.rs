@@ -13,11 +13,13 @@ use self::base::BaseConfig;
 use self::constant::*;
 use crate::error::Error;
 
+#[derive(Clone)]
 pub struct WebConfig {
     /// Listening address
     pub listen_addr: SocketAddr,
 }
 
+#[derive(Clone)]
 pub struct Config {
     pub web: WebConfig,
 }
