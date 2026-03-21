@@ -1,8 +1,10 @@
+use std::collections::HashSet;
 use std::env;
 use std::net::SocketAddr;
 use std::path::{Path, PathBuf};
 use std::str::FromStr;
 
+use nostr_sdk::prelude::*;
 use serde::de::DeserializeOwned;
 use tokio::fs;
 
@@ -13,15 +15,24 @@ use self::base::BaseConfig;
 use self::constant::*;
 use crate::error::Error;
 
-#[derive(Clone)]
 pub struct WebConfig {
     /// Listening address
     pub listen_addr: SocketAddr,
 }
 
-#[derive(Clone)]
+pub struct NostrConfig {
+    /// Events database path
+    pub events_path: PathBuf,
+    /// Gossip database path
+    pub gossip_path: PathBuf,
+    // TODO: move these to the database, so will be configurable from the Web UI?
+    /// Discovery relays
+    pub discovery_relays: HashSet<RelayUrl>,
+}
+
 pub struct Config {
     pub web: WebConfig,
+    pub nostr: NostrConfig,
 }
 
 impl Config {
@@ -47,11 +58,21 @@ impl Config {
                 .unwrap_or(DEFAULT_WEB_LISTEN_ADDR),
         };
 
+        let nostr: NostrConfig = NostrConfig {
+            events_path: workdir.join("events.db"),
+            gossip_path: workdir.join("gossip.db"),
+            discovery_relays: base_config
+                .nostr
+                .discovery_relays
+                .unwrap_or_else(|| DEFAULT_NOSTR_DISCOVERY_RELAYS.clone()),
+        };
+
         tracing::info!("workdir: {}", workdir.display());
         tracing::info!(addr = ?web.listen_addr, "web:");
+        tracing::info!(events_db = ?nostr.events_path, gossip_db = ?nostr.gossip_path, "nostr:");
 
         // Construct configs
-        Ok(Self { web })
+        Ok(Self { web, nostr })
     }
 }
 

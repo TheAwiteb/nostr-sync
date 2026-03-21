@@ -4,3 +4,7 @@
 [web]
 # Listen address and port for the Web UI
 listen_addr = "127.0.0.1:44552"
+
+[nostr]
+# Relays used for discoverying lists (NIP-65, etc.)
+discovery_relays = ["wss://purplepag.es", "wss://relay.damus.io", "wss://relay.primal.net"]

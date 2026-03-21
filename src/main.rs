@@ -1,36 +1,14 @@
-use std::net::SocketAddr;
-
-use axum::Router;
-use tokio::net::TcpListener;
 use tracing::Level;
 
 mod config;
 mod error;
 mod router;
 mod state;
+mod syncer;
 
 use self::config::Config;
 use self::error::Error;
 use self::state::SharedState;
-
-async fn serve_web_ui(config: Config, state: SharedState) -> Result<(), Error> {
-    let listen_add: SocketAddr = config.web.listen_addr;
-
-    // Build router
-    let router: Router = router::build(state);
-
-    tracing::debug!("Starting Web UI server...");
-
-    // Bind listener
-    let listener: TcpListener = TcpListener::bind(listen_add).await?;
-
-    tracing::info!("Serving Web UI on http://{listen_add}/");
-
-    // Serve web UI
-    axum::serve(listener, router).await?;
-
-    Ok(())
-}
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
@@ -46,8 +24,17 @@ async fn main() -> Result<(), Error> {
     // Construct state
     let state: SharedState = SharedState::new();
 
-    // Serve the Web UI
-    serve_web_ui(config, state).await?;
+    tokio::select! {
+        res = syncer::run(&config) => {
+            // Propagate error, if any
+            let _: () = res?;
+        }
+        // Serve Web UI
+        res = router::serve_web_ui(&config, state) => {
+            // Propagate error, if any
+            let _: () = res?;
+        }
+    }
 
     Ok(())
 }
