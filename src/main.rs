@@ -5,6 +5,7 @@ mod error;
 mod router;
 mod state;
 mod syncer;
+mod util;
 
 use self::config::Config;
 use self::error::Error;
@@ -25,7 +26,7 @@ async fn main() -> Result<(), Error> {
     let state: SharedState = SharedState::new();
 
     tokio::select! {
-        res = syncer::run(&config) => {
+        res = syncer::run(&config, state.clone()) => {
             // Propagate error, if any
             let _: () = res?;
         }

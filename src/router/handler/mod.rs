@@ -1,8 +1,9 @@
 use axum::http::header::CONTENT_TYPE;
 use axum::response::{IntoResponse, Response};
 
-pub(super) mod dashboard;
-pub(super) mod not_found;
+pub mod add_user;
+pub mod dashboard;
+pub mod not_found;
 
 const PICO_STYLE: &str = include_str!("../../../static/css/pico.min.css");
 const STYLE: &str = include_str!("../../../static/css/style.css");

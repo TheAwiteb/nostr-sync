@@ -4,11 +4,31 @@
 
 {% include "_nav.html" %}
 
-<section class="empty">
-    <h2>No users yet</h2>
-    <p>Add your first user to keep in sync</p>
+{% if users.is_empty() %}
 
-    <a href="/user/add" role="button" class="contrast big-add">Add user</a>
-</section>
+    <section class="empty">
+        <h2>No users yet</h2>
+        <p>Add your first user to keep in sync</p>
+    
+        <a href="/user/add" role="button" class="contrast big-add">Add user</a>
+    </section>
+
+{% else %}
+
+    <p>Users:</p>
+    
+    <div>
+        {% for public_key in users %}
+    
+            <a href="/user/{{ public_key }}">
+                <article>
+                    <strong>{{ public_key }}</strong>
+                </article>
+            </a>
+    
+        {% endfor %}
+    </div>
+
+{% endif %}
 
 {% endblock %}

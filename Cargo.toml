@@ -13,6 +13,7 @@ rust-version = "1.85.0"
 askama = "0.15.4"
 axum = "0.8.8"
 dirs = "6.0.0"
+nostr = {  git = "https://github.com/rust-nostr/nostr", rev = "adef94fd03e055cbfef9145014271514db9b7a2d" }
 nostr-gossip-sqlite = {  git = "https://github.com/rust-nostr/nostr", rev = "adef94fd03e055cbfef9145014271514db9b7a2d" }
 nostr-sdk = {  git = "https://github.com/rust-nostr/nostr", rev = "adef94fd03e055cbfef9145014271514db9b7a2d" }
 nostr-sqlite = {  git = "https://github.com/rust-nostr/nostr", rev = "adef94fd03e055cbfef9145014271514db9b7a2d" }

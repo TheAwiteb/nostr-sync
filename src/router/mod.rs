@@ -7,6 +7,7 @@ use tokio::net::TcpListener;
 mod error;
 mod handler;
 mod html;
+mod util;
 
 use crate::config::Config;
 use crate::error::Error;
@@ -19,6 +20,10 @@ fn build(state: SharedState) -> Router {
         .route("/static/css/style.css", get(handler::get_style))
         .route("/static/css/pico.min.css", get(handler::get_pico_style))
         .route("/", get(handler::dashboard::get))
+        .route(
+            "/user/add",
+            get(handler::add_user::get).post(handler::add_user::post),
+        )
         .fallback(handler::not_found::get)
         .with_state(state)
 }

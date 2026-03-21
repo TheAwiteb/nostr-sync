@@ -990,6 +990,7 @@ dependencies = [
  "askama",
  "axum",
  "dirs",
+ "nostr",
  "nostr-gossip-sqlite",
  "nostr-sdk",
  "nostr-sqlite",
