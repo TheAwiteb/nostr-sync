@@ -18,3 +18,4 @@ pub(super) static DEFAULT_NOSTR_DISCOVERY_RELAYS: LazyLock<HashSet<RelayUrl>> =
 pub(super) const ENV_WORKDIR: &str = "NOSTR_SYNC_WORKDIR";
 
 pub(super) const ENV_WEB_LISTEN_ADDR: &str = "NOSTR_SYNC_WEB_LISTEN_ADDR";
+pub(super) const ENV_NOSTR_DISCOVERY_RELAYS: &str = "NOSTR_SYNC_DISCOVERY_RELAYS";

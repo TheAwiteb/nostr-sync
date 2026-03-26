@@ -1,5 +1,6 @@
 use std::io;
 
+use nostr::types::url::Error as UrlError;
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -16,4 +17,6 @@ pub enum Error {
     NostrClient(#[from] nostr_sdk::client::Error),
     #[error("the specified path is not a directory")]
     NotADirectory,
+    #[error("Invalid relay URL `{0}`: {1}")]
+    InvalidRelayUrl(String, UrlError),
 }
