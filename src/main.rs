@@ -1,3 +1,5 @@
+use std::process::ExitCode;
+
 use tracing::Level;
 
 mod config;
@@ -11,14 +13,7 @@ use self::config::Config;
 use self::error::Error;
 use self::state::SharedState;
 
-#[tokio::main]
-async fn main() -> Result<(), Error> {
-    // Init logger
-    tracing_subscriber::fmt().with_max_level(Level::INFO).init();
-
-    #[cfg(debug_assertions)]
-    tracing::warn!("Running in debug mode!");
-
+async fn try_main() -> Result<(), Error> {
     // Load the config
     let config: Config = Config::read().await?;
 
@@ -38,4 +33,19 @@ async fn main() -> Result<(), Error> {
     }
 
     Ok(())
+}
+
+#[tokio::main]
+async fn main() -> ExitCode {
+    // Init logger
+    tracing_subscriber::fmt().with_max_level(Level::INFO).init();
+
+    #[cfg(debug_assertions)]
+    tracing::warn!("Running in debug mode!");
+
+    if let Err(err) = try_main().await {
+        eprintln!("{err}");
+        return ExitCode::FAILURE;
+    }
+    ExitCode::SUCCESS
 }
